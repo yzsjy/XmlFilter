@@ -16,8 +16,8 @@ import java.util.List;
 public class AcquireXml {
 
     public static void main(String[] args) throws DocumentException, IOException {
-        String targetPath = "E:\\Sensor\\Result2\\RiskLevel\\";
-        File file = new File("E:\\Sensor\\Result2\\");
+        String targetPath = "E:\\Sensor\\RiskLevel\\";
+        File file = new File("E:\\Sensor\\Result7\\");
         int num = 0;
         if (file.exists()) {
 
@@ -52,7 +52,6 @@ public class AcquireXml {
 
                     List<Attribute> listAttr = conflictJar.attributes();
                     for (Attribute attribute : listAttr) {
-                        System.out.println(attribute.getName() + ":" + attribute.getValue());
                         if ("riskLevel".equals(attribute.getName())) {
                             if ("3".equals(attribute.getValue()) || "4".equals(attribute.getValue())) {
                                 System.out.println(attribute.getName() + ":" + attribute.getValue());
