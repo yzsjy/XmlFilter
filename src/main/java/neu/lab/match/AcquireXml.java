@@ -16,17 +16,25 @@ import java.util.List;
 public class AcquireXml {
 
     public static void main(String[] args) throws DocumentException, IOException {
-        String targetPath = "E:\\Sensor\\RiskLevel\\";
-        File file = new File("E:\\Sensor\\Result7\\");
+        String targetPath = "E:\\DeccaSet\\ResultFilter\\B\\";
+        File file = new File("E:\\DeccaSet\\TestResult\\B\\");
         int num = 0;
+        if (!new File(targetPath).exists()) {
+            new File(targetPath).mkdirs();
+        }
         if (file.exists()) {
 
             if (file.listFiles().length > 0) {
                 for (File innerDir : file.listFiles()) {
                     System.out.println(innerDir.getPath());
+                    if (innerDir.getName().contains("DynamicBindDetect")) {
+                        continue;
+                    }
                     if (check(innerDir)) {
                         System.out.println("target");
-                        Files.copy(innerDir.toPath(), new File(targetPath + innerDir.getName()).toPath());
+                        if (!new File(targetPath + innerDir.getName()).exists()) {
+                            Files.copy(innerDir.toPath(), new File(targetPath + innerDir.getName()).toPath());
+                        }
                     }
                     num++;
                 }
@@ -42,6 +50,7 @@ public class AcquireXml {
             isTrue = false;
         } else {
             SAXReader saxReader = new SAXReader();
+            saxReader.setEncoding("GB2312");
             Document document = saxReader.read(file);
 
             Element rootElement = document.getRootElement();
